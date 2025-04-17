@@ -3,10 +3,10 @@ var swiper = new Swiper(".banner", {
         el: ".swiper-pagination",
         clickable: true,
     },
-    // autoplay: {
-    //     delay: 4000,
-    //     disableOnInteraction: false,
-    // },
+    autoplay: {
+        delay: 4000,
+        disableOnInteraction: false,
+    },
 });
 var swiper2 = new Swiper(".service__slider", {
     pagination: {
