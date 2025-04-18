@@ -16,6 +16,7 @@ if(slider){
     });
 
 }
+
 const area = document.getElementById('area-slider');
 if(area){
     noUiSlider.create(area, {
@@ -25,7 +26,8 @@ if(area){
             'min': 0.093,
             'max': 300
         },
-        step: 10,
+        step: 0.1,
+        behavior: 'none',
         format: {
             to: value => `${Math.round(value)}`,
             from: value => Number(value.replace('', ''))
@@ -92,8 +94,14 @@ if(slider){
     slider.noUiSlider.on('update', (values, handle) => {
         if (handle === 0) {
             priceMin.textContent = values[0];
+            if(area){
+                updateArea(30, 300)
+            }
         } else {
             priceMax.textContent = values[1];
+            if(area){
+                updateArea(50, 150)
+            }
         }
     });
 }
@@ -119,10 +127,13 @@ const thickMax = document.getElementById('thick-max');
 if(thick){
     thick.noUiSlider.on('update', (values, handle) => {
         if (handle === 0) {
-            areaMin.textContent = values[0];
+            thickMin.textContent = values[0];
+            updateArea(1, 100)
         } else {
-            areaMax.textContent = values[1];
+            thickMax.textContent = values[1];
+            updateArea(18, 60)
         }
+
     });
 }
 
@@ -132,9 +143,11 @@ const widthMax = document.getElementById('width-max');
 if(width){
     width.noUiSlider.on('update', (values, handle) => {
         if (handle === 0) {
-            areaMin.textContent = values[0];
+            widthMin.textContent = values[0];
+            updateArea(12, 50)
         } else {
-            areaMax.textContent = values[1];
+            widthMax.textContent = values[1];
+            updateArea(14, 300)
         }
     });
 }
@@ -146,11 +159,26 @@ const heightMax = document.getElementById('height-max');
 if(height){
     height.noUiSlider.on('update', (values, handle) => {
         if (handle === 0) {
-            areaMin.textContent = values[0];
+            heightMin.textContent = values[0];
+            updateArea(1, 50)
         } else {
-            areaMax.textContent = values[1];
+            heightMax.textContent = values[1];
+            updateArea(1, 50)
         }
+
     });
 }
 
+function updateArea(min, max) {
+    var thicknessValue = thick.noUiSlider.get();
+    var lengthValue = height.noUiSlider.get();
+    var widthValue = width.noUiSlider.get();
+
+    // Пример: доступное значение как произведение
+    var minAvailable = (thicknessValue * lengthValue * widthValue) / 1000;
+    var maxAvailable = minAvailable * 2; // Например, максимальное значение — это удвоенное минимальное
+
+    // Обновляем слайдер "Доступно"
+    area.noUiSlider.set([min, max]);
+}
 

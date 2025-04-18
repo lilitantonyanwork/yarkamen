@@ -76,6 +76,7 @@
     .products__banners--item:last-child {
         width: 190px;
     }
+
 }
 @media screen and (max-width: 1240px){
     .about__left{
@@ -538,9 +539,7 @@
         padding-top: 50px;
 
     }
-    .service__item {
-        width: calc(100% / 2);
-        }
+
     .services__right{
         position: relative;
         max-width: 100%;
@@ -556,6 +555,7 @@
     }
     .service__slider{
         width: calc(100% - 100px);
+        margin: 0 auto;
     }
     .why-us{
         padding-top: 0;
@@ -637,8 +637,15 @@
     .categories__filter{
         padding-right: 20px;
     }
+    .service__list--slider{
+        width: calc(100% - 30px);
+    }
 }
 @media screen and (max-width: 900px){
+    .features-products--izdeliya .product__item--content{
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
     .catalog__top{
         flex-direction: column;
         gap: 50px;
@@ -759,6 +766,10 @@
     .stone-tabs .catalog-tab__content h2{
         font-size: 16px;
         padding-right: 10px;
+    }
+    .service__list--slider{
+        width: calc(100% - 30px);
+        max-width: 660px;
     }
 }
 @media screen and (max-width: 800px){
@@ -1160,6 +1171,10 @@
     .stone-tabs .catalog-tab{
         width: 100%;
     }
+    .service__list .swiper-slide{
+        max-width: 100%;
+
+    }
 }
 @media screen and (max-width: 600px){
     .breadcrumbs{
@@ -1234,6 +1249,7 @@
     }
     .service__slider{
         width: 100%;
+        margin: 0 auto;
     }
     .search__name h2{
         font-size: 14px;
@@ -1362,7 +1378,12 @@
     .nav__right {
         gap: 15px;
     }
-
+    .stone-tabs .catalog-tab:hover .catalog-tab__content h2:before{
+        height: 45px;
+    }
+    .stone-tabs .catalog-tab:hover .catalog-tab__content h2{
+        margin-bottom: 35px;
+    }
 }
 @media screen and (max-width: 480px){
     .catalog-tab{
@@ -1593,6 +1614,19 @@
     }
     .search__form input {
         width: calc(100% - 45px);
+    }
+    .swiper-pagination-bullet {
+        width: 30px;
+    }
+    .search__result--count{
+        font-size: 14px;
+    }
+    .stone-tabs .catalog-tab:hover .catalog-tab__content h2:before{
+        top: -50px;
+    }
+    .features-products--izdeliya .product__item--content{
+        padding-top: 20px;
+        padding-bottom: 20px;
     }
 }
 @media screen and (max-width: 350px){

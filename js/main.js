@@ -3,15 +3,35 @@ var swiper = new Swiper(".banner", {
         el: ".swiper-pagination",
         clickable: true,
     },
-    autoplay: {
-        delay: 4000,
-        disableOnInteraction: false,
-    },
+    // autoplay: {
+    //     delay: 4000,
+    //     disableOnInteraction: false,
+    // },
 });
-var swiper2 = new Swiper(".service__slider", {
+var swiper2 = new Swiper(".service__list--slider", {
+    spaceBetween: 0,
+    slidesPerView: 4,
     pagination: {
         el: ".swiper-pagination",
         clickable: true,
+    },
+    breakpoints: {
+        0: {
+            slidesPerView: "1",
+            spaceBetween: 0,
+        },
+        480: {
+            slidesPerView: "2",
+            spaceBetween: 0,
+        },
+        769: {
+            slidesPerView: "3",
+            spaceBetween: 0,
+        },
+        901: {
+            slidesPerView: "4",
+            spaceBetween: 0,
+        },
     },
 });
 var swiper3 = new Swiper(".project__list", {
@@ -67,6 +87,7 @@ var swiper6 = new Swiper(".mySwiper2", {
 document.addEventListener("DOMContentLoaded", function() {
     const banner__block = document.querySelectorAll(".banner  .banner__right");
     // const banner__box  = document.querySelector(".banner .swiper-slide-active .banner__product--info ");
+    const banner__point =  document.querySelectorAll(".banner  .banner__point");
     const tab  = document.querySelectorAll(".registration__tabs .tab__item");
     const tab__content  = document.querySelectorAll(".registration__form");
     const deliveryTab  = document.querySelectorAll(".delivery__tabs .tab__item--delivery");
@@ -82,7 +103,25 @@ document.addEventListener("DOMContentLoaded", function() {
     const mainBlock  = document.querySelector("body ");
     const hasSub = document.querySelectorAll(".has-sub");
     const closeSearch = document.querySelector(".btn__close-search");
+    const showMore = document.querySelector(".btn__show-more");
 
+    if(showMore){
+        showMore.addEventListener("click", (e) => {
+            const parent = showMore.closest('.filter__content--more'); // or .banner__right
+            if (parent.classList.contains('open')) {
+                parent.classList.remove('open');
+                const dataMore = showMore.getAttribute('data-more');
+                showMore.textContent = dataMore;
+
+            } else {
+                parent.classList.add('open');
+
+                const dataLess = showMore.getAttribute('data-less');
+                showMore.textContent = dataLess;
+            }
+
+        });
+    }
     menu__btn.addEventListener("click", () => {
 
         if (menu__box.classList.contains('open')) {
@@ -142,6 +181,25 @@ document.addEventListener("DOMContentLoaded", function() {
 
             });
         })
+    }
+    if(banner__point){
+        banner__point.forEach(div => {
+            div.addEventListener('mouseenter', () => {
+                const container = div.closest('.banner__right');
+                const infoBox = container.querySelector('.banner__product--info');
+                if (infoBox) {
+                    infoBox.classList.add('open');
+                }
+            });
+
+            div.addEventListener('mouseleave', () => {
+                const container = div.closest('.banner__right');
+                const infoBox = container.querySelector('.banner__product--info');
+                if (infoBox) {
+                    infoBox.classList.remove('open');
+                }
+            });
+        });
     }
     tab.forEach(button => {
         button.addEventListener("click", (event) => {
@@ -381,9 +439,6 @@ document.addEventListener("DOMContentLoaded", function() {
         btnVideo.addEventListener("click", (event) => {
             event.preventDefault();
             modalVideo.style.display = "flex";
-
-            video.play();
-            video.autoplay = true;
             video.style.maxWidth = '100%';
             video.style.maxHeight = '100%';
         });
@@ -472,4 +527,30 @@ document.addEventListener("DOMContentLoaded", function() {
             fileInput.click(); // Triggers file upload dialog
         });
     }
+
+    const masterCheckbox = document.querySelector('.card__table--head input[type="checkbox"]');
+    const itemCheckboxes = document.querySelectorAll('.card__table--body input[type="checkbox"]');
+
+    if(masterCheckbox){
+        masterCheckbox.addEventListener('change', function () {
+            itemCheckboxes.forEach(checkbox => {
+                checkbox.checked = masterCheckbox.checked;
+            });
+        });
+    }
+
+
+    if(itemCheckboxes){
+        itemCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                if (!checkbox.checked) {
+                    masterCheckbox.checked = false;
+                } else {
+                    const allChecked = Array.from(itemCheckboxes).every(cb => cb.checked);
+                    masterCheckbox.checked = allChecked;
+                }
+            });
+        });
+    }
+
 });
